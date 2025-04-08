@@ -11,6 +11,3 @@ public class OnlineFoodOrderingApplication {
 	}
 
 }
-gfjdj.xfb
-
-
