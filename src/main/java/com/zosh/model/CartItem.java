@@ -18,6 +18,9 @@ public class CartItem {
     private  Long id;
 fdeqjkglewf
     efdjbblkew
+        afdbjasfdb
+    wgbjlkgws
+                wglkhwgr
 
     @ManyToOne
     @JsonIgnore
