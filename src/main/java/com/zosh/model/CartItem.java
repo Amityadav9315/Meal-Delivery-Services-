@@ -16,7 +16,8 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
-
+fdeqjkglewf
+    efdjbblkew
 
     @ManyToOne
     @JsonIgnore

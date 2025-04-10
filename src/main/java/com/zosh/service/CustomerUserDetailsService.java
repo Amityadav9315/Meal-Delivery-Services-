@@ -26,17 +26,17 @@ public class CustomerUserDetailsService  implements UserDetailsService {
 
         User user=userRepository.findByEmail(username);
 
-        if(user!=null){
+        if(user==null){
 
             throw  new UsernameNotFoundException("user not found with email"+username);
 
         }
 
         USER_ROLE role=user.getRole();
-        if(role==null)role=USER_ROLE.ROLE_CUSTOMER;
+      //  if(role==null)role=USER_ROLE.ROLE_CUSTOMER;
 
         List<GrantedAuthority> authorities=new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role.toString()));
-        return null;
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorities);
     }
 }
