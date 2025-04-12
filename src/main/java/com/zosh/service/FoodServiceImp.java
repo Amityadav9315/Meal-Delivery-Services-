@@ -70,10 +70,17 @@ public class FoodServiceImp  implements  FoodService{
     }
 
     private List<Food> filterByCategory(List<Food> foods, String foodCategory) {
+        return foods.stream().filter(food -> {
+            if(food.getFoodCategory()!=null){
+                return food.getFoodCategory().getName().equals(foodCategory);
+            }
+            return false;
+        }).collect(Collectors.toList());
 
     }
 
     private List<Food> filterBySeasonal(List<Food> foods, boolean isSeasonal) {
+        return  foods.stream().filter(food -> food.isSeasonal()==isSeasonal).collect(Collectors.toList());
     }
 
     private List<Food> filterByNonveg(List<Food> foods, boolean isNonveg) {
