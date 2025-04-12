@@ -38,11 +38,47 @@ public class FoodServiceImp  implements  FoodService{
     @Override
     public void deleteFood(Long foodId) throws Exception {
 
+        Food food=findFoodById(foodId);
+        food.setRestaurant(null);
+        foodRepository.save(food);
+
     }
 
     @Override
-    public List<Food> getRestaurantsFood(Long restaurantId, boolean isVegitarain, boolean isNonVeg, boolean idSeasonal, String foodCategory) {
-        return List.of();
+    public List<Food> getRestaurantsFood(Long restaurantId,
+                                         boolean isVegitarain,
+                                         boolean isNonveg,
+                                         boolean isSeasonal,
+                                         String foodCategory) {
+        List<Food> foods=foodRepository.findByRestaurantId(restaurantId);
+        if(isVegitarain){
+            foods=filterByVegetarian(foods,isVegitarain);
+        }
+        if(isNonveg){
+            foods=filterByNonveg(foods,isNonveg);
+        }
+        if(isSeasonal){
+            foods=filterBySeasonal(foods,isSeasonal);
+
+        }
+        if(foodCategory!=null && !foodCategory.equals("")){
+          foods=filterByCategory(foods,foodCategory);
+        }
+
+        return foods;
+    }
+
+    private List<Food> filterByCategory(List<Food> foods, String foodCategory) {
+
+    }
+
+    private List<Food> filterBySeasonal(List<Food> foods, boolean isSeasonal) {
+    }
+
+    private List<Food> filterByNonveg(List<Food> foods, boolean isNonveg) {
+    }
+
+    private List<Food> filterByVegetarian(List<Food> foods, boolean isVegitarain) {
     }
 
     @Override
