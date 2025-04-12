@@ -30,6 +30,7 @@ public class FoodServiceImp  implements  FoodService{
         food.setIngredients(req.getIngredientsItems());
         food.setSeasonal(req.isSeasonal());
         food.setVegetarian(req.isVegetarian());
+        food.setAvailable(req.isVegetarian());
         return null;
     }
 
