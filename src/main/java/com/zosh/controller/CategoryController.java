@@ -29,7 +29,7 @@ public class CategoryController {
         return  new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
     @GetMapping("/category/restaurant")
-    public ResponseEntity<List<Category>> getRestaurantCategory(@RequestBody Category category,
+    public ResponseEntity<List<Category>> getRestaurantCategory(
                                                    @RequestHeader("Authorization") String jwt) throws Exception{
         User user=userService.findUserByJwtToken(jwt);
          List<Category>  categories=categoryService.findCategoryByRestaurantId(user.getId());
