@@ -45,4 +45,15 @@ public class AdminFoodController {
         res.setMessage("food deleted successfully");
         return  new ResponseEntity<>(res, HttpStatus.CREATED);
     }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Food> updateFoodAvailabilityStatus(@PathVariable Long id, CreateFoodRequest req,
+                                                      @RequestHeader("Authorization") String jwt) throws Exception{
+        User user=userService.findUserByJwtToken(jwt);
+         Food food= foodService.updateAvailabilityStatus(id);
+
+        return  new ResponseEntity<>(food, HttpStatus.CREATED);
+    }
+
+
 }
