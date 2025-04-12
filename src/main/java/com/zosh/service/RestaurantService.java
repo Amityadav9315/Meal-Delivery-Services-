@@ -3,9 +3,7 @@ package com.zosh.service;
 import com.zosh.dto.RestaurantDto;
 import com.zosh.model.Restaurant;
 import com.zosh.model.User;
-import com.zosh.repository.CreateRestaurantRequest;
 
-import java.lang.annotation.Retention;
 import java.util.List;
 
 public interface RestaurantService {

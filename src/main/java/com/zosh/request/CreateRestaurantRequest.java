@@ -1,7 +1,5 @@
-package com.zosh.repository;
+package com.zosh.request;
 
-
-import com.sun.jdi.request.StepRequest;
 import com.zosh.model.ContactInformation;
 import lombok.Data;
 
@@ -9,7 +7,6 @@ import java.util.List;
 
 @Data
 public class CreateRestaurantRequest {
-
     private  Long id;
 
     private String name;
@@ -24,6 +21,6 @@ public class CreateRestaurantRequest {
 
     private  String openingHours;
 
-    private List<String>   images;
+    private List<String> images;
 
 }

@@ -5,7 +5,6 @@ import com.zosh.model.Address;
 import com.zosh.model.Restaurant;
 import com.zosh.model.User;
 import com.zosh.repository.AddressRepository;
-import com.zosh.repository.CreateRestaurantRequest;
 import com.zosh.repository.RestaurantRepository;
 import com.zosh.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
