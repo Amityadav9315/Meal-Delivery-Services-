@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.rmi.server.ExportException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -93,16 +94,22 @@ public class FoodServiceImp  implements  FoodService{
 
     @Override
     public List<Food> searchFood(String keyword) {
-        return List.of();
+        return foodRepository.searchFood(keyword);
     }
 
     @Override
     public Food findFoodById(Long foodId) throws Exception {
-        return null;
+        Optional<Food> optionalFood=foodRepository.findById(foodId);
+        if(optionalFood.isEmpty()){
+            throw new Exception("Food not exist...");
+        }
+        return optionalFood.get();
     }
 
     @Override
-    public Food updateAvailabilityStatus(Long foodId) throws ExportException {
-        return null;
+    public Food updateAvailabilityStatus(Long foodId) throws Exception {
+        Food food=findFoodById(foodId);
+        food.setAvailable(!food.isAvailable());
+        return foodRepository.save(food);
     }
 }
