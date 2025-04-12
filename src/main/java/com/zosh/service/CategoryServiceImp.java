@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImp implements CategoryService {
@@ -35,6 +36,11 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public Category findCategoryBtId(Long id) throws Exception {
-        return null;
+        Optional<Category> optionalCategory=categoryRepository.findById(id);
+
+        if(optionalCategory.isEmpty()){
+            throw new Exception("category not found");
+        }
+        return optionalCategory.get();
     }
 }
