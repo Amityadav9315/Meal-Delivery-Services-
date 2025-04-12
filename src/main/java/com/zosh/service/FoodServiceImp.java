@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.rmi.server.ExportException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -76,9 +77,11 @@ public class FoodServiceImp  implements  FoodService{
     }
 
     private List<Food> filterByNonveg(List<Food> foods, boolean isNonveg) {
+        return  foods.stream().filter(food -> food.isVegetarian()==false).collect(Collectors.toList());
     }
 
     private List<Food> filterByVegetarian(List<Food> foods, boolean isVegitarain) {
+        return  foods.stream().filter(food -> food.isVegetarian()==isVegitarain).collect(Collectors.toList());
     }
 
     @Override
