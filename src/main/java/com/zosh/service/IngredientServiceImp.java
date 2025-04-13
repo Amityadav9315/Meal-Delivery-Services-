@@ -6,10 +6,12 @@ import com.zosh.model.IngredientsItem;
 import com.zosh.model.Restaurant;
 import com.zosh.repository.IngredientCategoryRepository;
 import com.zosh.repository.IngredientItemRepository;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IngredientServiceImp implements  IngredientsService {
@@ -26,12 +28,16 @@ public class IngredientServiceImp implements  IngredientsService {
     @Override
     public IngredientsService createIngredientCategory(String name, Long restaurantId) throws Exception {
 
-        Restaurant restaurant=
-        return null;
+        Restaurant restaurant=restaurantService.findRestaurantById(restaurantId);
+        IngredientCategory category=new IngredientCategory();
+        category.setRestaurant(restaurant);
+        category.setName(name);
+        return (IngredientsService) ingredientCategoryRepository.save(category);
     }
 
     @Override
     public IngredientCategory findIngredientCategoryById(Long id) throws Exception {
+        Optional
         return null;
     }
 
