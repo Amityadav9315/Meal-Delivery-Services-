@@ -34,6 +34,13 @@ public class CartServiceImpl  implements  CartService{
 
         Cart cart=cartRepository.findByCustomerId(user.getId());
 
+        for(CartItem cartItem : cart.getItem()){
+            if(cartItem.getFood().equals(food)){
+                int newQuantity=cartItem.getQuantity()+ req.getQuantity();
+                return  updateCartItemQuantity(cartItem.getId(),newQuantity);
+            }
+        }
+
 
 
         return null;
