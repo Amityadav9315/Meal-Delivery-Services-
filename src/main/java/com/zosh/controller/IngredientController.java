@@ -50,4 +50,12 @@ public class IngredientController {
         List<IngredientsItem> items= ingredientsService.findRestaurantIngredients(id);
         return  new ResponseEntity<>(items, HttpStatus.OK);
     }
+
+    @GetMapping("/restaurant/{id}/category")
+    public ResponseEntity<List<IngredientCategory>>getRestaurantIngredientCategory(
+            @RequestBody  Long id
+    ) throws  Exception{
+        List<IngredientCategory> items= ingredientsService.findIngredientCategoryByRestaurant(id);
+        return  new ResponseEntity<>(items, HttpStatus.OK);
+    }
 }
