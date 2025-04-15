@@ -77,6 +77,8 @@ public class IngredientServiceImp implements  IngredientsService {
         if(optionalIngredientsItem.isEmpty()){
             throw new Exception("ingredient not found ");
         }
-        return null;
+        IngredientsItem ingredientsItem=optionalIngredientsItem.get();
+        ingredientsItem.setInStoke(!ingredientsItem.isInStoke());
+        return ingredientItemRepository.save(ingredientsItem);
     }
 }
