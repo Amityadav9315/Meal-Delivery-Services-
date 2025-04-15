@@ -2,6 +2,8 @@ package com.zosh.service;
 
 import com.zosh.model.Cart;
 import com.zosh.model.CartItem;
+import com.zosh.model.Food;
+import com.zosh.model.User;
 import com.zosh.repository.CartItemRepository;
 import com.zosh.repository.CartRepository;
 import com.zosh.repository.FoodRepository;
@@ -22,10 +24,18 @@ public class CartServiceImpl  implements  CartService{
     private CartItemRepository cartItemRepository;
 
     @Autowired
-    private FoodRepository foodRepository;
+    private FoodService foodService;
 
     @Override
     public CartItem addItemToCart(AddCartItemRequest req, String jwt) throws Exception {
+        User user=userService.findUserByJwtToken(jwt);
+
+        Food food=foodService.findFoodById(req.getFoodId());
+
+        Cart cart=cartRepository.findByCustomerId(user.getId());
+
+
+
         return null;
     }
 
