@@ -47,21 +47,36 @@ public class IngredientServiceImp implements  IngredientsService {
 
     @Override
     public List<IngredientCategory> findIngredientCategoryByRestaurant(Long id) throws Exception {
-        return ingredientCategoryRepository.findRestaurantId(id);
+        restaurantService.findRestaurantById(id);
+        return ingredientCategoryRepository.findByRestaurantId(id);
     }
 
     @Override
     public IngredientsItem createIngredientItem(Long restaurantId, String ingredientName, Long categoryId) throws Exception {
-        return null;
+        Restaurant restaurant=restaurantService.findRestaurantById(restaurantId);
+        IngredientCategory category=findIngredientCategoryById(categoryId);
+
+        IngredientsItem item=new IngredientsItem();
+        item.setName(ingredientName);
+        item.setRestaurant(restaurant);
+        item.setCategory(category);
+        IngredientsItem ingredient=ingredientItemRepository.save(item);
+        category.getIngredients().add(ingredient);
+        return ingredient;
     }
 
     @Override
     public List<IngredientsItem> findRestaurantIngredients(Long restaurantsId) {
-        return List.of();
+        return  ingredientItemRepository.findByRestaurantId(restaurantsId);
+
     }
 
     @Override
     public IngredientsItem updateStock(Long id) throws Exception {
+        Optional<IngredientsItem> optionalIngredientsItem=ingredientItemRepository.findById(id);
+        if(optionalIngredientsItem.isEmpty()){
+            throw new Exception("ingredient not found ");
+        }
         return null;
     }
 }
