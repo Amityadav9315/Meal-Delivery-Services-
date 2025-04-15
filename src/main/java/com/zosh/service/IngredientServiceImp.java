@@ -37,8 +37,12 @@ public class IngredientServiceImp implements  IngredientsService {
 
     @Override
     public IngredientCategory findIngredientCategoryById(Long id) throws Exception {
-        Optional yffff
-        return null;
+        Optional<IngredientCategory> opt=ingredientCategoryRepository.findById(id);
+
+        if(opt.isEmpty()){
+            throw  new Exception("ingredient category not found ");
+        }
+        return opt.get();
     }
 
     @Override
