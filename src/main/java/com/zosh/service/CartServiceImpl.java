@@ -11,6 +11,8 @@ import com.zosh.request.AddCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class CartServiceImpl  implements  CartService{
@@ -55,11 +57,17 @@ public class CartServiceImpl  implements  CartService{
 
 
 
-        return null;
+        return savedCartItem;
     }
 
     @Override
     public CartItem updateCartItemQuantity(Long cartItemId, int quantity) throws Exception {
+       Optional <CartItem> cartItemOptional=cartItemRepository.findById(cartItemId);
+        if (cartItemOptional.isEmpty()){
+            throw  new Exception("cart item not found ");
+        }
+        CartItem item=cartItemOptional.get();
+        item.setQuantity(quantity);
         return null;
     }
 
