@@ -68,11 +68,14 @@ public class CartServiceImpl  implements  CartService{
         }
         CartItem item=cartItemOptional.get();
         item.setQuantity(quantity);
-        return null;
+
+        item.setTotalPrice(item.getFood().getPrice()*quantity);
+        return cartItemRepository.save(item);
     }
 
     @Override
     public Cart removeItemFromCart(Long cartItemId, String jwt) throws Exception {
+        User user=
         return null;
     }
 
