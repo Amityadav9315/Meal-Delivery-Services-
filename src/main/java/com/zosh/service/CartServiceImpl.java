@@ -89,16 +89,26 @@ public class CartServiceImpl  implements  CartService{
 
     @Override
     public Long calculateCartTotals(Cart cart) throws Exception {
-        return null;
+        Long total=0L;
+        for(CartItem cartItem :cart.getItem()){
+            total+=cartItem.getFood().getPrice()*cartItem.getQuantity();
+
+        }
+        return total;
     }
 
     @Override
     public Cart findCartById(Long id) throws Exception {
-        return null;
+        Optional<Cart> optionalCart=cartRepository.findById(id);
+        if(optionalCart.isEmpty()){
+            throw  new Exception("cart not found with id"+id);
+        }
+        return optionalCart.get();
     }
 
     @Override
     public Cart findCartByUserId(Long userId) throws Exception {
+
         return null;
     }
 
