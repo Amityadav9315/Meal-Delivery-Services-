@@ -2,6 +2,7 @@ package com.zosh.controller;
 
 import com.zosh.model.CartItem;
 import com.zosh.request.AddCartItemRequest;
+import com.zosh.request.UpdateCartItemRequest;
 import com.zosh.service.CartService;
 import jakarta.persistence.Access;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,13 @@ public class CartController {
     public ResponseEntity<CartItem> addItemToCart(@RequestBody AddCartItemRequest req,
                                                   @RequestHeader("Authorization") String jwt) throws  Exception{
         CartItem cartItem=cartService.addItemToCart(req,jwt);
+        return new ResponseEntity<>(cartItem, HttpStatus.OK);
+    }
+
+    @PutMapping("/cart-item/update")
+    public ResponseEntity<CartItem> updateCartItemQuantity(@RequestBody UpdateCartItemRequest req,
+                                                  @RequestHeader("Authorization") String jwt) throws  Exception{
+        CartItem cartItem=cartService.updateCartItemQuantity(req.getCartItemId(), req.getQuantity());
         return new ResponseEntity<>(cartItem, HttpStatus.OK);
     }
 }
