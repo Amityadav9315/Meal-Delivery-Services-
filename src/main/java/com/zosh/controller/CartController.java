@@ -38,4 +38,11 @@ public class CartController {
         Cart cart=cartService.removeItemFromCart(id,jwt);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
+
+    @PutMapping("/cart/clear")
+    public ResponseEntity<CartItem> clearCart(
+                                                           @RequestHeader("Authorization") String jwt) throws  Exception{
+        CartItem cartItem=cartService.clearCart(jwt);
+        return new ResponseEntity<>(cartItem, HttpStatus.OK);
+    }
 }
