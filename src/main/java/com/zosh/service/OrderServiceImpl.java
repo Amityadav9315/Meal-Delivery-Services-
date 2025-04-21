@@ -2,13 +2,13 @@ package com.zosh.service;
 
 import com.zosh.model.Address;
 import com.zosh.model.Order;
+import com.zosh.model.Restaurant;
 import com.zosh.model.User;
-import com.zosh.repository.AddressRepository;
-import com.zosh.repository.OrderRepository;
-import com.zosh.repository.OrderitemRepository;
+import com.zosh.repository.*;
 import com.zosh.request.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 public class OrderServiceImpl implements  OrderService{
@@ -22,15 +22,33 @@ public class OrderServiceImpl implements  OrderService{
     @Autowired
     private AddressRepository addressRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RestaurantService restaurantService;
+
     @Override
-    public Order createOrder(OrderRequest order, User user) {
+    public Order createOrder(OrderRequest order, User user) throws Exception {
         Address shippAddress=order.getDeliveryAddress();
 
-        Address saveAddress=addressRepository.save(shippAddress);
+        Address savedAddress=addressRepository.save(shippAddress);
 
-        if(!user.getAddresses().contains(saveAddress)){
-            user.getAddresses().add(saveAddress);
+        if(!user.getAddresses().contains(savedAddress)){
+            user.getAddresses().add(savedAddress);
+            userRepository.save(user);
+
         }
+        Restaurant restaurant=restaurantService.findRestaurantById(order.getRestaurantId());
+
+        Order createdOrder=new Order();
+        createdOrder.setCustomer(user);
+        createdOrder.setCreatedAt(new Date());
+        createdOrder.setOrderStatus("PENDING");
+        createdOrder.setDeliveryAddress(savedAddress);
+        createdOrder.setRestaurant(restaurant);
+
+
         return null;
     }
 
