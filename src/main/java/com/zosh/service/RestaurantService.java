@@ -3,6 +3,7 @@ package com.zosh.service;
 import com.zosh.dto.RestaurantDto;
 import com.zosh.model.Restaurant;
 import com.zosh.model.User;
+import com.zosh.request.CreateRestaurantRequest;
 
 import java.util.List;
 
