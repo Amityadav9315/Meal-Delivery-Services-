@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class OrderServiceImpl implements  OrderService{
 
@@ -77,8 +79,15 @@ public class OrderServiceImpl implements  OrderService{
     @Override
     public Order updateOrder(Long orderId, String orderStatus) throws Exception {
         Order order=findOrderById(orderId);
-        if(orderStatus.equals())
-        return null;
+        if(orderStatus.equals("OUT_FOR_DELIVERY")
+                    || orderStatus.equals("DELIVERED")
+                     || orderStatus.equals("COMPLETED")
+                     || orderStatus.equals("PENDING")
+        ){
+            order.setOrderStatus(orderStatus);
+            return orderRepository.save(order);
+        }
+        throw  new Exception("Please select a valid order status");
     }
 
     @Override
@@ -90,11 +99,26 @@ public class OrderServiceImpl implements  OrderService{
 
     @Override
     public List<Order> getUsersOrder(Long userId) throws Exception {
-        return List.of();
+
+        return orderRepository.findByCustomerId(userId);
     }
 
     @Override
     public List<Order> getRestaurantOrder(Long restaurantId, String orderStatus) throws Exception {
-        return List.of();
+        List<Order> orders=orderRepository.findByRestaurantId(restaurantId);
+        if(orderStatus!=null){
+            orders=orders.stream().filter(order ->
+                    order.getOrderStatus().equals(orderStatus)).toList();
+        }
+        return  orders;
+    }
+
+    @Override
+    public Order findOrderById(Long orderId) throws Exception {
+        Optional<Order> optionalOrder=orderRepository.findById(orderId);
+        if(optionalOrder.isEmpty()){
+            throw new Exception("order not found ");
+        }
+        return optionalOrder.get();
     }
 }
