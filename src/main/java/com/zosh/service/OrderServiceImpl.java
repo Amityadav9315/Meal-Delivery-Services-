@@ -1,9 +1,6 @@
 package com.zosh.service;
 
-import com.zosh.model.Address;
-import com.zosh.model.Order;
-import com.zosh.model.Restaurant;
-import com.zosh.model.User;
+import com.zosh.model.*;
 import com.zosh.repository.*;
 import com.zosh.request.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,9 @@ public class OrderServiceImpl implements  OrderService{
     @Autowired
     private RestaurantService restaurantService;
 
+    @Autowired
+    private  CartService cartService;
+
     @Override
     public Order createOrder(OrderRequest order, User user) throws Exception {
         Address shippAddress=order.getDeliveryAddress();
@@ -47,6 +47,8 @@ public class OrderServiceImpl implements  OrderService{
         createdOrder.setOrderStatus("PENDING");
         createdOrder.setDeliveryAddress(savedAddress);
         createdOrder.setRestaurant(restaurant);
+
+        Cart cart= cartService.findCartById(user.getId());
 
 
         return null;
