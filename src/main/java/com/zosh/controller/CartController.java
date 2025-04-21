@@ -1,5 +1,6 @@
 package com.zosh.controller;
 
+import com.zosh.model.Cart;
 import com.zosh.model.CartItem;
 import com.zosh.request.AddCartItemRequest;
 import com.zosh.request.UpdateCartItemRequest;
@@ -29,5 +30,12 @@ public class CartController {
                                                   @RequestHeader("Authorization") String jwt) throws  Exception{
         CartItem cartItem=cartService.updateCartItemQuantity(req.getCartItemId(), req.getQuantity());
         return new ResponseEntity<>(cartItem, HttpStatus.OK);
+    }
+
+    @PutMapping("/cart-item/{id}/remove")
+    public ResponseEntity<Cart> removeCartItem(@PathVariable Long id,
+                                               @RequestHeader("Authorization") String jwt) throws  Exception{
+        Cart cart=cartService.removeItemFromCart(id,jwt);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 }
