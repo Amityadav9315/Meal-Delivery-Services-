@@ -5,6 +5,7 @@ import com.zosh.repository.*;
 import com.zosh.request.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,17 +51,40 @@ public class OrderServiceImpl implements  OrderService{
 
         Cart cart= cartService.findCartById(user.getId());
 
+        List<OrderItem> orderItems=new ArrayList<>();
+        for(CartItem cartItem: cart.getItem()){
+            OrderItem orderItem=new OrderItem();
+            orderItem.setFood(cartItem.getFood());
+            orderItem.setIngredients(cartItem.getIngredients());
+            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setTotalPrice(Math.toIntExact(cartItem.getTotalPrice()));
+
+            OrderItem saveOrderItem=orderitemRepository.save(orderItem);
+            orderItems.add(saveOrderItem);
+        }
+
+        Long totalPrice=cartService.calculateCartTotals(cart);
+        createdOrder.setItems(orderItems);
+        createdOrder.setTotalPrice(totalPrice);
+
+        Order saveOrder=orderRepository.save(createdOrder);
+        restaurant.getOrders().add(saveOrder);
+
 
         return null;
     }
 
     @Override
     public Order updateOrder(Long orderId, String orderStatus) throws Exception {
+        Order order=findOrderById(orderId);
+        if(orderStatus.equals())
         return null;
     }
 
     @Override
     public void cancelOrder(Long orderId) throws Exception {
+        Order order= findOrderById(orderId);
+        orderRepository.deleteById(orderId);
 
     }
 
