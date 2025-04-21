@@ -3,6 +3,7 @@ package com.zosh.controller;
 
 import com.zosh.model.Restaurant;
 import com.zosh.model.User;
+import com.zosh.request.CreateRestaurantRequest;
 import com.zosh.response.MessageResponse;
 import com.zosh.service.RestaurantService;
 import com.zosh.service.UserService;
