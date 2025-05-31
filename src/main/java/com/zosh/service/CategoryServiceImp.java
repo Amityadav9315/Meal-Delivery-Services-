@@ -14,7 +14,7 @@ public class CategoryServiceImp implements CategoryService {
 
     @Autowired
     private RestaurantService restaurantService;
-jbb
+
     @Autowired
     private CategoryRepository categoryRepository;
 
